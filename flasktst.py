@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+import subprocess
 
 app = Flask(__name__)
 
@@ -6,6 +7,7 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/vmd_timestamp')
-def vmd_timestamp():
-    return render_template('vmd_timestamp.html')
+@app.route('/script')
+def command():
+    result_success = subprocess.check_output(["ifconfig"], shell=True)
+    return result_success
