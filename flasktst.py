@@ -10,7 +10,6 @@ app = Flask(__name__)
  
 @app.route('/')
 def index():
-    result_success = subprocess.check_output(["ifconfig"], shell=True)
     return render_template('index.html')
 
 @app.route('/connect')
