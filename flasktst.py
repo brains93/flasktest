@@ -18,4 +18,5 @@ def command():
     ssid = request.args.get("ssid")
     password = request.args.get("password")
     #subprocess.check_output([f"nmcli dev wifi connect {ssid} password {password}"], shell=True)
-    return subprocess.check_output(["nmcli", "dev", "wifi", "connect", f"{ssid}", "password" f"{password}"], shell=True)
+    work = subprocess.check_output(["nmcli", "dev", "wifi", "connect", f"{ssid}", "password" f"{password}", "iface", "wlan0"], shell=True)
+    return work
