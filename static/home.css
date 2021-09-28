@@ -65,6 +65,10 @@ body {
         letter-spacing: -1px;
         color: #999;
       }
+  
+      h5 {
+        color: aqua;
+      }
       .center {
         display: block;
         margin-left: auto;
