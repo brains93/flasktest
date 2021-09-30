@@ -1,5 +1,5 @@
-from flask import Flask, request, render_template
-from wireless import Wireless
+from flask import Flask, request, render_template, redirect, url_for
+#from wireless import Wireless
 #import connection as Finder
 import requests
 import subprocess
@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 internet = ""
 interfaces = []
-wireless = wireless()
+#wireless = wireless()
  
 @app.route('/')
 def index():
@@ -28,6 +28,11 @@ def command():
     ssid = request.args.get("ssid")
     password = request.args.get("password")
     print(ssid, password)
-    #subprocess.check_output([f"nmcli dev wifi connect {ssid} password {password}"], shell=True)
-    return wireless.connect(ssid=ssid, password=password)
-    #subprocess.check_output(["nmcli", "dev", "wifi", "connect", f"{ssid}", "password" f"{password}", "iface", "wlan0"], shell=True)
+    #subprocess.check_output(["/usr/bin/nmcli", "dev", "wifi", f"connect {ssid}", f"password {password}", "iface", "wlan0"], shell=True)
+    #return wireless.connect(ssid=ssid, password=passwor
+    bashCommand = f"/usr/bin/nmcli dev wifi connect {ssid} password {password}"
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+
+
+    return redirect("/")
