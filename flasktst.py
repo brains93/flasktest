@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 import requests
 import subprocess
 import os
@@ -22,7 +22,9 @@ def index():
 
 @app.route('/connect')
 def command():
-    #ssid = request.args.get("ssid")
-    #password = request.args.get("password")
-    #subprocess.check_output([f"nmcli dev wifi connect {ssid} password {password}"], shell=True)
-    return subprocess.check_output(["nmcli", "dev", "wifi", "connect", f"{ssid}", "password" f"{password}", "iface", "wlan0"], shell=True)
+    ssid = request.args.get("ssid")
+    password = request.args.get("password")
+    command = f"/usr/bin/nmcli dev wifi connect {ssid} password {password}"
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+    return redirect("/")
