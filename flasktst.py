@@ -6,12 +6,15 @@ import subprocess
 import os
 
 app = Flask(__name__)
-#wifi = subprocess.check_output(['nmcli', 'dev', 'wifi'])
-#type(wifi)
 
+#sets up verables 
 internet = ""
 interfaces = []
-#wireless = wireless()
+
+#function to run shell commands
+def runshell(bashCommand):
+    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
  
 @app.route('/')
 def index():
@@ -25,14 +28,14 @@ def index():
 
 @app.route('/connect')
 def command():
+    #take input from the HTTP Get request and assigns it to a vaerable
+    #Needs changed to Post requests 
     ssid = request.args.get("ssid")
     password = request.args.get("password")
-    print(ssid, password)
-    #subprocess.check_output(["/usr/bin/nmcli", "dev", "wifi", f"connect {ssid}", f"password {password}", "iface", "wlan0"], shell=True)
-    #return wireless.connect(ssid=ssid, password=passwor
-    bashCommand = f"/usr/bin/nmcli dev wifi connect {ssid} password {password}"
-    process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
-    output, error = process.communicate()
-
-
+    interface = request.args.get("interface")
+    
+    #sets up WiFi connection command 
+    Command = f"/usr/bin/nmcli dev wifi connect {ssid} password {password} ifname {interface}"
+    runshell(Command)
+    #redirects back to main page 
     return redirect("/")

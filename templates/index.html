@@ -9,16 +9,16 @@
   <h2 align="center">Enter WiFi details</h2>
   <h5>{{ internet }}</h5>
   <h6> Select interface to connect to Wifi</h6>
-  <select name="interface"  method="GET" action="/connect">
-    <option value="{{interfaces[0]}}" selected>{{interfaces[0]}}</option>
-    {% for interface in interfaces[1:] %}
-      <option value="{{interface}}">{{interface}}</option>
-    {% endfor %}
-  </select>
+
   <br>
-  <br>
-</select>
   <form align="center" action="/connect">
+    <select name="interface"  method="GET" action="/connect">
+      <option value="{{interfaces[0]}}" selected>{{interfaces[0]}}</option>
+      {% for interface in interfaces[1:] %}
+        <option value="{{interface}}">{{interface}}</option>
+      {% endfor %}
+    </select>
+    <br>
     <label align="center" for="ssid">SSID</label><br>
     <input type="text" id="ssid" name="ssid"><br>
     <label for="password">Password</label><br>
