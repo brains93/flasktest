@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 from flask import Flask, request, render_template, redirect, url_for
 #from wireless import Wireless
 #import connection as Finder
+=======
+from flask import Flask, request, render_template, redirect
+>>>>>>> fac185ef378dcece2cf007d4666fc0b015014862
 import requests
 import subprocess
 import os
@@ -28,6 +32,7 @@ def index():
 
 @app.route('/connect')
 def command():
+<<<<<<< HEAD
     #take input from the HTTP Get request and assigns it to a vaerable
     #Needs changed to Post requests 
     ssid = request.args.get("ssid")
@@ -38,4 +43,11 @@ def command():
     Command = f"/usr/bin/nmcli dev wifi connect {ssid} password {password} ifname {interface}"
     runshell(Command)
     #redirects back to main page 
+=======
+    ssid = request.args.get("ssid")
+    password = request.args.get("password")
+    command = f"/usr/bin/nmcli dev wifi connect {ssid} password {password}"
+    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+    output, error = process.communicate()
+>>>>>>> fac185ef378dcece2cf007d4666fc0b015014862
     return redirect("/")
